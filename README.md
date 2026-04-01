@@ -8,12 +8,12 @@
 ### 🏆 Team Vision.exe - National Road Safety Initiative Submission
 
 **[📄 View the Official Pitch Deck here (PDF)](Vision_exe_Aura-Node.pdf)**
-**[🎥 Watch the Hardware Prototype Demo here](https://drive.google.com/drive/folders/11mKqqmBnzBV_A0G_Bcpa5rW-wn8XLETZ?usp=drive_link)*
+**[🎥 Watch the Hardware Prototype Demo here](https://drive.google.com/drive/folders/11mKqqmBnzBV_A0G_Bcpa5rW-wn8XLETZ?usp=drive_link)**
 
 ---
 
 ## 🚨 The Threat Vectors
-Current road safety tech (luxury ADAS) was built for California highways, not Indian realities. We face three unique challenges:
+Standard road safety tech (like luxury ADAS) is designed for structured, predictable environments—leaving massive blind spots when faced with the dynamic realities of Indian traffic. We face three unique challenges:
 1. **Visibility Collapse:** Optical sensors (Cameras/LiDAR) fail in India's dense winter fog, causing high-speed fatal pileups.
 2. **Heterogeneous Reality:** Over 70% of Indian traffic comprises two-wheelers. Standard car-based safety systems ignore these vulnerable riders.
 3. **Golden Hour Deficit:** 80% of severe fatalities occur when victims are hidden off-road. Reliance on bystanders delays emergency dispatch.
