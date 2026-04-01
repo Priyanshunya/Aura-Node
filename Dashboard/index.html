@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aura-Node Command Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body { background-color: #f3f4f6; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        .card { background-color: white; border: 1px solid #e5e7eb; border-radius: 0.5rem; box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); }
+    </style>
+</head>
+<body class="p-6">
+
+    <div class="max-w-6xl mx-auto space-y-4">
+        
+        <div class="flex justify-between items-center bg-white p-4 rounded-lg shadow-sm border border-gray-200">
+            <h1 class="text-xl font-bold text-gray-800 tracking-wider">AURA-NODE COMMAND</h1>
+            <div class="flex space-x-4 text-gray-500">
+                <svg class="w-6 h-6 cursor-pointer hover:text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
+                <svg class="w-6 h-6 cursor-pointer hover:text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+            </div>
+        </div>
+
+        <div class="bg-orange-100 border border-orange-300 text-orange-700 p-3 rounded-lg text-center font-bold tracking-widest animate-pulse">
+            HARD BRAKE DETECTED
+        </div>
+
+        <div class="grid grid-cols-4 gap-4">
+            <div class="card p-4 text-center">
+                <div class="text-xs text-gray-400 font-semibold mb-1 uppercase">G-Force</div>
+                <div class="text-3xl font-bold text-blue-600">1.02</div>
+            </div>
+            <div class="card p-4 text-center border-b-4 border-red-500">
+                <div class="text-xs text-gray-400 font-semibold mb-1 uppercase">Peak</div>
+                <div class="text-3xl font-bold text-red-600">3.09</div>
+            </div>
+            <div class="card p-4 text-center">
+                <div class="text-xs text-gray-400 font-semibold mb-1 uppercase">Pitch</div>
+                <div class="text-3xl font-bold text-gray-700">-36&deg;</div>
+            </div>
+            <div class="card p-4 text-center">
+                <div class="text-xs text-gray-400 font-semibold mb-1 uppercase">Roll</div>
+                <div class="text-3xl font-bold text-gray-700">-20&deg;</div>
+            </div>
+        </div>
+
+        <div class="card p-4">
+            <div class="text-xs text-gray-500 font-bold uppercase mb-2">Total Impact Vector (G)</div>
+            <div class="h-32 w-full relative">
+                <canvas id="impactChart"></canvas>
+            </div>
+        </div>
+
+        <div class="card p-4">
+            <div class="text-xs text-gray-500 font-bold uppercase mb-2">Chassis Pitch (Deg)</div>
+            <div class="h-32 w-full relative">
+                <canvas id="pitchChart"></canvas>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Mock data to match the screenshot spikes
+        const labels = Array.from({length: 50}, (_, i) => i);
+        const impactData = Array(40).fill(1).map(x => x + (Math.random() * 0.2 - 0.1));
+        impactData.push(1.2, 1.8, 3.09, 1.5, 1.1, 1.0); // The hard brake spike
+        impactData.push(...Array(4).fill(1));
+
+        const pitchData = Array(40).fill(0).map(x => x + (Math.random() * 2 - 1));
+        pitchData.push(-5, -15, -36, -10, -2, 0); // The pitch dip
+        pitchData.push(...Array(4).fill(0));
+
+        // Impact Chart
+        new Chart(document.getElementById('impactChart').getContext('2d'), {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'G-Force',
+                    data: impactData,
+                    borderColor: '#3b82f6', // blue-500
+                    backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                    borderWidth: 2,
+                    fill: true,
+                    tension: 0.4,
+                    pointRadius: 0
+                }]
+            },
+            options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { display: false }, y: { display: false, min: 0, max: 4 } } }
+        });
+
+        // Pitch Chart
+        new Chart(document.getElementById('pitchChart').getContext('2d'), {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Pitch',
+                    data: pitchData,
+                    borderColor: '#d97706', // amber-600
+                    backgroundColor: 'rgba(217, 119, 6, 0.1)',
+                    borderWidth: 2,
+                    fill: true,
+                    tension: 0.4,
+                    pointRadius: 0
+                }]
+            },
+            options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { display: false }, y: { display: false, min: -40, max: 10 } } }
+        });
+    </script>
+</body>
+</html>
