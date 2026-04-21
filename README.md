@@ -8,7 +8,7 @@
 ### 🏆 Team Vision.exe - National Road Safety Initiative Submission
 
 **[📄 View the Official Pitch Deck here (PDF)](Vision_exe_Aura-Node.pdf)**
-**[🎥 Watch the Hardware Prototype Demo here](https://drive.google.com/drive/folders/11mKqqmBnzBV_A0G_Bcpa5rW-wn8XLETZ?usp=drive_link)**
+**[🎥 Watch the Hardware Prototype Demo here](https://drive.google.com/file/d/12CaYv9uMYZY5GrS2RqyE4gWb3Wh-J5l_/view?usp=sharing)**
 
 ---
 
